@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
-    <title>Slider</title>
-</head>
-<body>
+
     <style>
             @media (max-width: 700px) {
             .slider__container, .slider__body {
@@ -117,6 +108,10 @@
             aspect-ratio: 1 / 1;
             border-radius: 50%;
             flex: 0 0 auto;
+            font-szie: 34px;
+            font-weight: bold;
+            color: black;
+            text-align: center;
         }
         .slider .slider-row .slider-row__item .slider-row__name {
             font-size: clamp(12.45px, 1.125vw, 18.41px);
@@ -355,7 +350,7 @@
                     <li class="slider-row__item swiper-slide">
                         <div class="slider-row__wrapper">
                             <div class="slider-row__heading">
-                                <div class="slider-row__customer-icon"></div>Oskar
+                                <div class="slider-row__customer-icon">OS</div><br>Oskar
                                 <div class="slider-row__stars">
                                     <ul class="stars">
                                         <li class="stars__item">
@@ -565,5 +560,4 @@ Rekommenderar starkt!!!
             loop: true
         })
     </script>
-</body>
-</html>
+
