@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <title>Slider</title>
+</head>
+<body>
+    <style>
+            @media (max-width: 700px) {
+            .slider__container, .slider__body {
+                max-width: 500px !important;
+            }
+            .swiper-slider-active {
+                min-width: 217px !important;
+            }
+            .slider .slider-row__wrapper {
+                padding: 23px 30px 32px 23px !important; 
+            }
+            .stars__item {
+                width: 14px !important;
+                height: 14px !important;
+            }
+            .stars__item img {
+                width: inherit !important;
+                height: inherit !important;
+            }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: inherit;
+            color: var(--clrBlack);
+            font-family: inherit;            
+            background-color: hsla(0, 0%, 94%, 0.8);           
+        }    
+        p {
+            margin: 0;
+        }
+        ul {
+            padding: 0;
+            margin: 0;            
+        }
+        li {
+            list-style: none;
+        }
+        html {
+            font-family: var(--ff);
+            font-size: 16px;
+        }
+        @import url('http://fonts.cdnfonts.com/css/gotham');
+        :root {
+            --ff: 'Gotham', sans-serif;
+            --40-spc: 2.5rem;
+            --27-spc: 1.6875rem;
+            --4-spc: .25rem;
+            --reviewWidth: 17.875rem;
+            --clrYellow:hsla(46, 70%, 69%, 1);
+            --clrGreen: hsla(148, 48%, 49%, 1);
+            --clrRed: hsla(4, 67%, 51%, 1);
+            --clrLight: hsla(255, 255, 255, 1);
+            --clrBlack: hsla(0, 0%, 0%, 1);   
+            --bgCustomer: hsla(0, 0%, 93%, 1);
+            --bgHiddenReview: hsla(0, 0%, 100%, 0.65);
+        }
+
+        .slider {
+        height: 100vh;
+        width: 100%;
+        } 
+        .slider__body {
+            display: flex;
+            flex-direction: column;
+            /* align-items: center; */
+            grid-gap: 40px;
+            max-width: 90rem;
+            margin-inline: auto;
+            padding: 1rem 0;
+        }       
+        .slider .slider__container {
+            height: inherit;
+            padding: 0 1rem;
+            margin-inline: auto;
+            max-width: calc(90rem + 2rem);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slider .slider-row {
+            display: flex;          
+        }
+        .slider .slider-row .slider-row__item {
+            max-width: 19.876rem;
+            border: 1px solid var(--clrYellow);
+            border-radius: 0.625rem;            
+            background-color: #fff;
+            box-shadow: 0px 4px 4px 0px hsla(0, 0%, 0%, 0.1);
+
+        }
+        .slider .slider-row .slider-row__item .slider-row__wrapper {
+            display: flex;
+            flex-direction: column;
+            grid-gap: clamp(1.40625rem, 2vw, 2rem);
+            padding: 34px 45.2px 40px 33px;
+        }
+        .slider .slider-row .slider-row__item .slider-row__heading {
+            display: flex;
+            align-items: end;
+            grid-gap: clamp(16.5px, 1.375vw, 22px);
+        }
+        .slider .slider-row .slider-row__item .slider-row__customer-icon {
+            background-color:  hsla(0, 0%, 85%, 1);
+            width: clamp(2.375rem, 3.625vw, 58px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            flex: 0 0 auto;
+        }
+        .slider .slider-row .slider-row__item .slider-row__name {
+            font-size: clamp(12.45px, 1.125vw, 18.41px);
+            font-weight: 700;
+            max-width: 12.1875rem;
+            line-height: 138%;
+        }
+        .slider .slider-row .slider-row__item .slider-row__info {
+            max-width: 13.5rem;
+        }
+        .slider .slider-row .slider-row__item .slider-row__info p {
+            font-weight: 300;
+            line-height: 150%;
+            font-size: clamp(10.1px, 0.9375vw, 15px);
+        }
+        .slider .slider-row .stars {
+            display: flex;
+            align-items: center;
+            grid-gap: 5.2px;
+        }
+        .slider .slider-row .stars__item {
+            padding: 3.41px;
+            border-radius: 2.44px;
+            background-color: var(--clrGreen);
+        }
+        .slider .slider-row .stars__item img {
+            width: 20px;
+            height: 20px;
+        }
+        .swiper-slide::before {
+            content: '';
+            background-color: hsla(0, 0%, 100%, 0.65);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide-shadow-left {
+            background-image: none !important;
+        }
+        .swiper-slide-shadow-right {
+            background-image: none !important;
+        }
+        .swiper-slide-active .slider-row__customer-icon  {
+            width: clamp(38px, 4.375vw, 70px) !important;
+        }
+        .swiper-slide-active .slider-row__wrapper {
+            padding: 40px 54px 51px 40px !important; 
+        }
+        .swiper-slide-active .slider-row__info p {
+            font-size: clamp(10px, 1.125vw, 18px) !important;
+        }
+        .swiper-slide-active .slider-row__info  {
+            max-width: 17.875rem !important;
+        }
+        .swiper-slide-active .slider-row__name  {
+            max-width: 233px !important;
+            font-size: clamp(12.45px, 1.375vw, 22px) !important;
+        }
+        .swiper-slide-active {
+            min-width: 380px;
+        }
+        .swiper-slide {
+            /* transform: translate3d(0px, 2px, -203.115px) rotateX(0deg) rotateY(0deg) scale(1) !important; */
+        }
+        .swiper-slide-active .slider-row__wrapper {
+            grid-gap: clamp(22.5px, 2.5vw, 40px) !important;
+        }
+        .swiper-slide-active::before {
+            opacity: 0;
+            visibility: hidden;
+            user-select: none;
+        }
+        .swiper-slide-active .stars__item img {
+                width: 24px !important;
+                height: 24px !important;                        
+        }
+        .swiper-slide-active .stars {
+            grid-gap: 6.5px !important; 
+        }
+        .swiper-slide-active .stars__item {
+            padding: 4.2px !important;
+        }
+        .swiper-slide-active .slider-row__heading {
+            grid-gap: clamp(16.51px, 1.6875vw, 27px) !important;
+        }
+        ._fourthSlide .stars__item {
+            background-color:  hsla(0, 0%, 85%, 1) !important;
+        }
+        ._fourthSlide .redStar {
+            background-color: var(--clrRed) !important;
+        }
+        .slider__pag {
+            display: flex;
+            grid-gap: 30px;
+            margin-inline: auto;
+            max-width: 1200px;
+        }
+        .slider-pag__item {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: hsla(46, 70%, 69%, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;   
+            cursor: pointer;
+        }
+        .arrow {
+        border: solid black;
+        border-width: 0 1px 1px 0;
+        display: inline-block;
+        padding: 4px;
+  
+        }
+        .next-arrow {
+            transform: rotate(-45deg);
+        }
+        .prev-arrow {
+            transform: rotate(135deg);
+        }
+        .swiper-button-disabled {
+            background-color: #fff;
+            outline: 2px solid var(--clrYellow);
+            
+        }
+        .swiper-button-disabled .arrow {
+            /* background-color: var(--clrYellow); */
+        }
+        @media (max-width: 1240px) {
+            .slider__container {
+                max-width: 700px !important;
+                /* overflow: hidden; */
+            }
+            .slider__body {
+                max-width: 700px !important;
+            }
+            .swiper-slide .stars .stars__item img {
+                width: 11px !important;
+                height: 11px !important;
+            }
+        }
+        @media (max-width: 700px) {
+            .slider__container {
+                max-width: 100%;
+                overflow: hidden;
+            }
+            .swiper-slide {
+                max-width: 172px !important;
+            }
+            .swiper-slide .stars {
+                grid-gap: 2px !important;
+            }
+            .swiper-slide .slider-row__heading {
+                grid-gap: 11.85px !important;
+                
+            }
+            .swiper-slide-active .stars__item img {
+                width: 14px !important;
+                height: 14px !important; 
+            }
+            .swiper-slide-active {
+                min-width: auto !important;
+                max-width: 218px;
+            }
+            .swiper-slide .slider-row__info {
+                max-width: 130px !important;
+            }
+            .swiper-slide .slider-row__name {
+                max-width: 105px !important;
+            }
+            .swiper-slide .stars .stars__item {
+                padding: 1.85px !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .slider .slider-row .slider-row__item .slider-row__wrapper {
+                padding: 17px 25px 21px 17.7px !important;
+                grid-gap: 0px !important;
+                justify-content: center;
+                min-height: 225px;
+                /* min-height: 265px; */
+            }
+            .swiper-slide .slider-row__info {
+                margin-top: 6px;
+            }
+            .swiper-slide .slider-row__name {
+                margin-top: 18px !important;
+            }
+            .swiper-slide-active {
+                min-height: 265px;
+                
+                max-width: 217px !important;
+            }
+            .swiper-slide-active .slider-row__info {
+                max-width: 163px !important;
+            }
+            .swiper-slide-active .slider-row__name {
+                max-width: 133.5px !important;
+            }
+            .swiper-slide .slider-row__customer-icon {
+                width: 32px !important;
+                height: 32px !important;
+            }
+            .slider-pag__item {
+                position: absolute;
+                z-index: 999;
+                width: 25px;
+                height: 25px;
+            }
+            .slider__body {
+                position: relative;
+                
+            }
+            .prev {
+                top: 40%;
+                left: 28px;
+                transform: translateY(-20%);
+            }
+            .next {
+                top: 40%;
+                right: 28px;
+                transform: translateY(-40%);
+            }
+        }
+            /* @media (max-width:) {
+                
+            } */
+    </style>
+    <div class="slider">
+        <div class="slider__container">
+            <div class="slider__body swiper">
+                <ul class="slider-row swiper-wrapper">
+                    <li class="slider-row__item swiper-slide">
+                        <div class="slider-row__wrapper">
+                            <div class="slider-row__heading">
+                                <div class="slider-row__customer-icon"></div>
+                                <div class="slider-row__stars">
+                                    <ul class="stars">
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-row__name">
+                                Vincent Traynor 
+                                reviewed Travelbase
+                            </div>
+                            <div class="slider-row__info">
+                                <p>
+                                    “The guides on site in the <br> Amalfi trip were exceptional <br> and really helpful. The routes are intersting and despite really bad weather on a coupel of days we thro...”
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="slider-row__item swiper-slide">
+                        <div class="slider-row__wrapper">
+                            <div class="slider-row__heading">
+                                <div class="slider-row__customer-icon"></div>
+                                <div class="slider-row__stars">
+                                    <ul class="stars">
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-row__name">
+                                Vincent Traynor 
+                                reviewed Travelbase
+                            </div>
+                            <div class="slider-row__info">
+                                <p>
+                                    “The guides on site in the <br> Amalfi trip were exceptional <br> and really helpful. The routes are intersting and despite really bad weather on a coupel of days we thro...”
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="slider-row__item swiper-slide">
+                        <div class="slider-row__wrapper">
+                            <div class="slider-row__heading">
+                                <div class="slider-row__customer-icon"></div>
+                                <div class="slider-row__stars">
+                                    <ul class="stars">
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-row__name">
+                                Vincent Traynor 
+                                reviewed Travelbase
+                            </div>
+                            <div class="slider-row__info">
+                                <p>
+                                    “The guides on site in the <br> Amalfi trip were exceptional <br> and really helpful. The routes are intersting and despite really bad weather on a coupel of days we thro...”
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="slider-row__item swiper-slide _fourthSlide">
+                        <div class="slider-row__wrapper">
+                            <div class="slider-row__heading">
+                                <div class="slider-row__customer-icon"></div>
+                                <div class="slider-row__stars">
+                                    <ul class="stars">
+                                        <li class="stars__item redStar">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-row__name">
+                                Vincent Traynor 
+                                reviewed Travelbase
+                            </div>
+                            <div class="slider-row__info">
+                                <p>
+                                    “The guides on site in the <br> Amalfi trip were exceptional <br> and really helpful. The routes are intersting and despite really bad weather on a coupel of days we thro...”
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="slider-row__item swiper-slide">
+                        <div class="slider-row__wrapper">
+                            <div class="slider-row__heading">
+                                <div class="slider-row__customer-icon"></div>
+                                <div class="slider-row__stars">
+                                    <ul class="stars">
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                        <li class="stars__item">
+                                            <img src="img/star-icon.svg" alt="star-icon">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="slider-row__name">
+                                Vincent Traynor 
+                                reviewed Travelbase
+                            </div>
+                            <div class="slider-row__info">
+                                <p>
+                                    “The guides on site in the <br> Amalfi trip were exceptional <br> and really helpful. The routes are intersting and despite really bad weather on a coupel of days we thro...”
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="slider__pag">
+                    <div class="slider-pag__item prev">
+                        <div class="arrow prev-arrow"></div>
+                    </div>
+                    <div class="slider-pag__item next">
+                        <div class="arrow next-arrow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+          import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
+        const swiper = new Swiper ('.slider__body', {
+            effect: 'coverflow',            
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100, 
+                modifier: 2.5, 
+                slideShadows: true,
+            },
+            breakpoints: {},
+            navigation: {
+                nextEl: '.next',
+                prevEl: '.prev'
+            },
+            loop: true
+        })
+    </script>
+</body>
+</html>
